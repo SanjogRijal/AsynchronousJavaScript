@@ -1,0 +1,75 @@
+<!Doctype html>
+	<head>
+		<title> Font-size example </title>
+		
+		<style>
+			.grid-container {
+				display: grid;
+				grid-template-columns: 40px 50px 40px;
+			}
+			
+
+		</style>
+	</head>
+
+	<body>
+		<div class = "grid-container">
+			<div class = "bttn-wrapper minus-bttn grid-item">
+				<button id="minusBttn">-</button>
+			</div>
+
+			<div class = "text grid-item">
+				<h1 id = "pxSetup">12px</h1>
+			</div>
+
+			<div class = "grid-item bttn-wrapper plus-bttn">
+				<button id="plusBttn">+</button>
+			</div>
+
+		</div>
+
+	
+	</body>
+	<script>
+		function computeNewFontSize(operation, fontSize){
+			let newFontSize;
+			console.log("Fontsize before operation: ",fontSize);
+			switch(operation){
+				case '+':
+					newFontSize = `${(parseInt(fontSize)+1).toString()}px`;
+					console.log(newFontSize);
+					break;
+				case '-':
+					newFontSize = `${(parseInt(fontSize)-1).toString()}px`;
+					break;
+				default:
+					alert("Specified Operation Not Found");
+			}
+			return newFontSize;
+		}
+
+		function main(){
+			let plusBttn = document.getElementById("plusBttn");
+			let minusBttn = document.getElementById("minusBttn");
+			let pxSetup = document.getElementById("pxSetup");
+			let initialFontSize = window.getComputedStyle(pxSetup, null).getPropertyValue('font-size');
+			let currentFontSize = initialFontSize;
+			plusBttn.onclick = () => {
+				let plusFontSize = computeNewFontSize('+',currentFontSize);
+				console.log("Fontsize after plus", plusFontSize);
+				pxSetup.style.fontSize = plusFontSize;
+				currentFontSize = plusFontSize;
+			}
+
+			minusBttn.onclick = () => {
+				let minusFontSize = computeNewFontSize('-',currentFontSize);
+				pxSetup.style.fontSize = minusFontSize;
+				currentFontSize = minusFontSize;
+			}
+			
+		}
+
+		main();
+
+	</script>
+</html>
